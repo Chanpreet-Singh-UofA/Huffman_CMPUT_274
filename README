@@ -1,0 +1,74 @@
+-----------------------------------------------------------------------------------------------------
+
+=> Name         : Chanpreet Singh
+=> ID           : 1576137
+=> CMPUT 274    - Tangible Compting - Fall 2019
+=> Assignment 1 - Huffman Coding
+
+------------------------------------------------------------------------------------------------------
+=> Included Files:
+-------------------------------------------------------------------------------------------------------
+
+- bitio.py     : Contains the classs BitWriter and BitReader
+- compress.py  : Runs the code to compress a file.
+- huffman.py   : Used to create huffman trees as well as encode and decode messages. To be written in class.
+- webserver.py : The file that allows viewing of the compressed files as they are being sent to the web browser
+- wwwroot directory :contains compressed versions of the webpage (index.html.huf) and the image of 							Huffman (huffman.bmp.huf)
+
+--------------------------------------------------------------------------------------------------------
+=> Modified Files:
+-------------------
+- util.py: Contains the five functions read_tree(), decode_byte(), write_tree(), compress(), and decompress() which students must implement.
+
+--------------------------------------------------------------------------------------------------------
+=> Running the code:
+---------------------
+Go to the wwwroot directory. Open a bash terminal and open the web server using "python3 ../webserver.py". You can then go to the url "http://localhost:8000" to view the webpage and image of Huffman that will appear if the decompressor is functioning properly. Note that the port can be changed by modifying the variable port in webserver.py.
+
+To compress a file, first copy that file over to the wwwroot directory and then move to that directory and type "python3 ../compress.py somefile.ext" where somefile is the name of the file you wish to compress and ext is the extension. Then go to the url "http://localhost:8000/somefile.ext" to view and/or download the decompressed file.
+
+--------------------------------------------------------------------------------------------------------
+=> Program:
+------------
+==> Task 1 : Decomposing
+
+we use three functions in util.py to do this:
+
+1) read_tree()   : This function use pickle to destearalize the streamand return the root node.
+
+2) decode_byte() : This function is used to read the bit by using readbit() of bitreader class of bitio.py file, then it check if the bit is 0 or 1 and accordingly redirect path to appopriate treebranch. This happens intill we reach a tree leaf, then leaf value is returned.
+
+3) decompress() : In this functionwe do the decompression, we first read the tree stream by using read_tree(). Then we use decode_byte() to read the path and get tree leaf value. This value or symbol is thenwritten to uncompressed stream by using writebits() of bitwriter class of bitio.py file. This process is repeated and entire tree is decompressed. Atlast we use flush() to fill any partly filled byte.
+
+==>Task 2 : Compression
+
+We use two funtions in util.py to do this:
+
+1) write_tree() : We use pickle to stearalize the huffman tree and write it into tree_stream.
+
+2) compress() : In this function first we call write_tree() to write the tree at top of the stream. Then we create frequency table by using make_encoding_table() of huffman.py file. Then we use readbits() of bitreader class of bitio.py file to get a value which is then used to get the path of that value using frequency table. Then we get a path and we convert it into list which contain True or False as direction to that value. Then we use writebit() of bitwriter class of bitio.py file to write 1s for every True in path and 0s for every false in path. After EOFError is raised, we write path to end-of-file i.e. None into file and end loop. Finally we use flush() to fillany partly filled byte.
+
+
+--------------------------------------------------------------------------------------------------------=> Disclaimer:
+
+This entire assignment is done individually but help from TA's was taken for decode_byte(), decompress() and compress() during the help room office hours and TA explained them explicitly and many other people also heard it which could lead to few logarithmic similarities but assignment was made 100% indidvidually only and no discussion was conducted with anyone other then TA's. In this assignment, I have also used error handling in every function, so i could know my which function was not working eventhough it was advised to use error handling for ending loop.
+
+--------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
