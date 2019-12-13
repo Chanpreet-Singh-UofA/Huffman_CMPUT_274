@@ -15,6 +15,8 @@
 - webserver.py : The file that allows viewing of the compressed files as they are being sent to the web browser
 - wwwroot directory :contains compressed versions of the webpage (index.html.huf) and the image of 							Huffman (huffman.bmp.huf)
 
+
+Huffman.zip contain complete program along with all other files needed.
 --------------------------------------------------------------------------------------------------------
 => Modified Files:
 -------------------
